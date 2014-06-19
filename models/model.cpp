@@ -11,18 +11,21 @@
 using std::vector;
 
 Model::Model() {
-	this->verts = vector< vector<float> >();
-	this->txtrs = vector< vector<float> >();
-	this->norms = vector< vector<float> >();
-	this->faces = vector<Face>();
+
 }
 
-Model::Model(vector< vector<float> > verts, vector< vector<float> > txtrs, vector< vector<float> > norms, vector<Face> faces) {
+Model::Model(vector<Point> verts, vector<Point> txtrs, vector<Point> norms, vector<Face> faces) {
 	this->verts = verts;
 	this->txtrs = txtrs;
 	this->norms = norms;
 	this->faces = faces;
 }
+/*Model::Model(vector< vector<float> > verts, vector< vector<float> > txtrs, vector< vector<float> > norms, vector<Face> faces) {
+	this->verts = verts;
+	this->txtrs = txtrs;
+	this->norms = norms;
+	this->faces = faces;
+}*/
 
 /*Model::Model(std::string path) {
 	std::string extension = split(path, '.').back();
@@ -51,46 +54,54 @@ void Model::render() {
 
 			if (norms.size() > normInd1) {
 				glNormal3f(
-					norms.at(normInd1).at(X),
-					norms.at(normInd1).at(Y),
-					norms.at(normInd1).at(Z)
+					norms.at(normInd1).x,
+					norms.at(normInd1).y,
+					norms.at(normInd1).z
 				);
+				/*std::cout << "Normal[" << normInd1<< "]: "
+				<< norms.at(normInd1).x << ", "
+				<< norms.at(normInd1).y << ", "
+				<< norms.at(normInd1).z << std::endl;*/
 			}
 			if (verts.size() > vertInd1) {
 				glVertex3f(
-					verts.at(vertInd1).at(X),
-					verts.at(vertInd1).at(Y),
-					verts.at(vertInd1).at(Z)
+					verts.at(vertInd1).x,
+					verts.at(vertInd1).y,
+					verts.at(vertInd1).z
 				);
+				/*std::cout << "Vertex[" << vertInd1<< "]: "
+				<< verts.at(vertInd1).x << ", "
+				<< verts.at(vertInd1).y << ", "
+				<< verts.at(vertInd1).z << std::endl;*/
 			}
 
 			if (norms.size() > normInd2) {
 				glNormal3f(
-					norms.at(normInd2).at(X),
-					norms.at(normInd2).at(Y),
-					norms.at(normInd2).at(Z)
+					norms.at(normInd2).x,
+					norms.at(normInd2).y,
+					norms.at(normInd2).z
 				);
 			}
 			if (verts.size() > vertInd2) {
 				glVertex3f(
-					verts.at(vertInd2).at(X),
-					verts.at(vertInd2).at(Y),
-					verts.at(vertInd2).at(Z)
+					verts.at(vertInd2).x,
+					verts.at(vertInd2).y,
+					verts.at(vertInd2).z
 				);
 			}
 
 			if (norms.size() > normInd3) {
 				glNormal3f(
-					norms.at(normInd3).at(X),
-					norms.at(normInd3).at(Y),
-					norms.at(normInd3).at(Z)
+					norms.at(normInd3).x,
+					norms.at(normInd3).y,
+					norms.at(normInd3).z
 				);
 			}
 			if (verts.size() > vertInd3) {
 				glVertex3f(
-					verts.at(vertInd3).at(X),
-					verts.at(vertInd3).at(Y),
-					verts.at(vertInd3).at(Z)
+					verts.at(vertInd3).x,
+					verts.at(vertInd3).y,
+					verts.at(vertInd3).z
 				);
 			}
 		}

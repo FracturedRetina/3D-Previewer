@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include "point.h"
 #include "face.h"
 #include "../main/util.h"
 #include "modelLoader.h"
@@ -10,9 +11,9 @@
 using namespace std;
 
 Model loadObj(string path) {
-	vector< vector<float> > verts;
-	vector< vector<float> > txtrs;
-	vector< vector<float> > norms;
+	vector< Point > verts;
+	vector< Point > txtrs;
+	vector< Point > norms;
 	vector< Face > faces;
 
 	string line;
@@ -21,7 +22,7 @@ Model loadObj(string path) {
 	if (!fin.good()) {
 		cout << "File not found: " << path << endl;
 	} else if (split(path, '.').back() != "obj") {
-		cout << "Invalid file type.";
+		cout << "Invalid file type." << endl;
 	}
 
 	while (getline(fin, line)) {
@@ -39,14 +40,11 @@ Model loadObj(string path) {
 			continue;
 		}
 
-		vector<float> xyz(3);
-		if ((splitLn[0] == "v" || splitLn[0] == "vt" || splitLn[0] == "vn") && splitLn[0] == "f") {
-			xyz[0] = ::atof(splitLn[1].c_str());
-			xyz[1] = ::atof(splitLn[2].c_str());
-			xyz[2] = ::atof(splitLn[3].c_str());
-//			cout << splitLn[0] << " - X: " << xyz[0] << endl;
-//			cout << splitLn[0] << " - Y: " << xyz[1] << endl;
-//			cout << splitLn[0] << " - Z: " << xyz[2] << endl;
+		Point xyz;
+		if ((splitLn[0] == "v" || splitLn[0] == "vt" || splitLn[0] == "vn") && splitLn[0] != "f") {
+			xyz.x = ::atof(splitLn[1].c_str());
+			xyz.y = ::atof(splitLn[2].c_str());
+			xyz.z = ::atof(splitLn[3].c_str());
 		}
 		if (splitLn[0] == "v") {
 			verts.push_back(xyz);
@@ -120,6 +118,7 @@ Model loadObj(string path) {
 	}
 
 	fin.close();
+
 
 	return Model(verts, txtrs, norms, faces);
 }
